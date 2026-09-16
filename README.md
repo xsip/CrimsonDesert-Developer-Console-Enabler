@@ -36,7 +36,7 @@ Toggle the console in-game with the middle mouse button (`GetAsyncKeyState(4)`).
 git clone --recurse-submodules <this repo>
 ```
 
-Open `CrimsonDesert-Developer-Console-Enabler.slnx` in Visual Studio 2022+, pick `Release|x64` - Debug wont work - and build.
+Open `CrimsonDesert-Developer-Console-Enabler.slnx` in Visual Studio, pick `Release|x64` - Debug wont work - and build.
 
 If you already cloned without `--recurse-submodules`:
 
