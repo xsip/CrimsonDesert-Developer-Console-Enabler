@@ -1,0 +1,3 @@
+[submodule "LiquidHookEx"]
+	path = LiquidHookEx
+	url = git@github.com:xsip/LiquidHookEx.git

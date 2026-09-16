@@ -1,0 +1,9 @@
+.vs
+*/**/*.obj
+bin
+obj
+packages
+**/*/x64
+*.pdb
+*.exe
+External/hooks.json

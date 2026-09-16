@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="External/External.vcxproj" Id="8d65cea8-f5c3-4f55-ba0d-d3448dece7fd" />
+  <Project Path="GlobalData/GlobalData.vcxproj" Id="67c0b8c6-8308-41d3-9540-2d33fc61bc34" />
+  <Project Path="LiquidHookEx/LiquidHookEx/LiquidHookEx.vcxproj" Id="00b59da1-017f-445c-ac10-87928d2e1d87" />
+  <Project Path="Math/Math.vcxproj" Id="94096955-e595-4626-a42a-48722d7983cd" />
+</Solution>
