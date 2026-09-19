@@ -53,6 +53,7 @@ int main() {
             if (!bRegistered) {
                 CustomCommandCtx ctx{};
                 ctx.pos = reinterpret_cast<Vector*>(CrimsonDesert::CPosition::GetInstance()->GetPositionAddr());
+				printf("Pos Addr: 0x%p\n", ctx.pos);
                 ctx.jmpHeight = 10.0f;
                 auto customCmdData = pCmdReg->RegisterCommand<CustomCommandCtx>("/jump", CustomCommand, CustomCommandEnd, &g_pCustomCommandCtx, ctx);
                 if (customCmdData.bAllocated && customCmdData.bRegisted) {

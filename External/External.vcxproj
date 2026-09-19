@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Include\External\CommandRegistry.h" />
     <ClInclude Include="Include\External\CPosition.h" />
+    <ClInclude Include="Include\External\Patterns.h" />
     <ClInclude Include="Include\External\WinAppLauncher.h" />
     <ClInclude Include="Include\External\Include.h" />
   </ItemGroup>

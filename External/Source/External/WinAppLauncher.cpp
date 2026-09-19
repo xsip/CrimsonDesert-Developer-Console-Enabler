@@ -1,6 +1,7 @@
 #include <External/WinAppLauncher.h>
 #include <GlobalData/Include.h>
 #include <LiquidHookEx/Include.h>
+#include <External/Patterns.h>
 
 using namespace Globals;
 
@@ -78,7 +79,6 @@ namespace CrimsonDesert {
 
 		bool WinAppLauncher::ApplyHooks() {
 		
-#define DISABLE_FN_PATTERN "48 89 5C 24 ? 48 89 54 24 ? 55 56 57 41 56 41 57 48 83 EC ? 49 8B E9 49 8B F0 4C 8B F1 48 8B 01 4C 8B 78 ? BB ? ? ? ? 65 48 8B 04 25 ? ? ? ? 48 03 18 BA ? ? ? ? 8B CA 80 3B ? 74 ? E8 ? ? ? ? EB ? E8 ? ? ? ? 48 8B F8 48 85 C0 75 ? E8 ? ? ? ? 45 33 C9 45 33 C0 BA ? ? ? ? B9 ? ? ? ? FF 15 ? ? ? ? 48 89 7C 24 ? 48 85 FF 74 ? BA ? ? ? ? B9 ? ? ? ? 80 3B ? 74 ? E8 ? ? ? ? EB ? E8 ? ? ? ? 48 8B D8 48 85 C0 75 ? E8 ? ? ? ? 45 33 C9 45 33 C0 BA ? ? ? ? B9 ? ? ? ? FF 15 ? ? ? ? 48 89 5C 24 ? 48 85 DB 74 ? 48 8D 05 ? ? ? ? 48 89 03 48 8D 05 ? ? ? ? 48 89 03 48 89 73 ? C5 F8 10 45 ? C5 F8 11 43 ? 48 C7 07 ? ? ? ? 48 85 DB 74 ? 48 89 1F C6 47 ? ? C6 84 24 ? ? ? ? ? 48 89 BC 24 ? ? ? ? 45 33 C9 4C 8B C6 48 8D 15 ? ? ? ? 49 8B CE 49 8B C7 48 8B 5C 24 ? 48 83 C4 ? 41 5F 41 5E 5F 5E 5D 48 FF E0 CC CC 40 55"
 
 		DisablerHookData initData{};
 
@@ -99,7 +99,6 @@ namespace CrimsonDesert {
 
 
 	WinAppLauncher* WinAppLauncher::GetInstance() {
-#define WIN_APP_LAUNCHER_MOV_RCX_INSTR "48 8B 0D ?? ?? ?? ?? 49 8B E8 8B F2"
 		return pProc->ReadDirect<WinAppLauncher*>(pExeMod->ResolveRIP(pExeMod->ScanMemory(WIN_APP_LAUNCHER_MOV_RCX_INSTR)));
 	}
 
@@ -203,8 +202,6 @@ namespace CrimsonDesert {
 
 
 	void WinAppLauncher::SetConsoleVisibility(bool bIsVisible) {
-#define SHOW_CONSOLE_FN_PATTERN "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC ?? 48 8B F9 48 8B 41 ?? 48 8B 98 ?? ?? ?? ?? 48 85 DB 0F 84 ?? ?? ?? ?? 48 8B 03 48 8B CB FF 50 ?? 84 C0 74"
-#define HIDE_CONSOLE_FN_PATTERN "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC ?? 48 8B F9 48 8B 41 ?? 48 8B 98 ?? ?? ?? ?? 48 85 DB 0F 84 ?? ?? ?? ?? 48 8B 03 48 8B CB FF 50 ?? 84 C0 0F 84"
 		if (!pRemoteConsoleCtx) {
 			auto pBaseAddr = pExeMod->GetAddr();
 			ConsoleStateCtx ctx;

@@ -1,6 +1,7 @@
 #include <External/CommandRegistry.h>
 #include <GlobalData/Include.h>
 #include <LiquidHookEx/Include.h>
+#include <External/Patterns.h>
 
 using namespace Globals;
 
@@ -26,12 +27,21 @@ namespace CrimsonDesert {
 	LH_END()
 
 	CommandRegistry* CommandRegistry::GetInstance(bool bWaitFor, int iWaitForTimeout) {
-		CommandRegistry* pReg = pProc->ReadDirect<CommandRegistry*>(pProc->ReadDirect<uintptr_t>(pProc->ReadDirect<uintptr_t>(pExeMod->GetAddr() + 0x6B53230)) + 0x28);
+		auto movInstr = pExeMod->ScanMemory(COMMAND_REGISTRY_PTR_MOV_PATTERN);
+		if (!movInstr) {
+			printf("Couldn't find command registry pointer!\n");
+			return nullptr;
+		}
+
+		auto rip = pExeMod->ResolveRIP(movInstr);
+
+		CommandRegistry* pReg = pProc->ReadDirect<CommandRegistry*>(pProc->ReadDirect<uintptr_t>(pProc->ReadDirect<uintptr_t>(rip)) + 0x28);		
 		if (!pReg && bWaitFor) {
 			while (!(pReg = GetInstance(false))) {
 				Sleep(iWaitForTimeout);
 			}
 		}
+
 		return pReg;
 	}
 
@@ -153,7 +163,6 @@ namespace CrimsonDesert {
 		customCmdCtx.szCmd = reinterpret_cast<const char*>(pCmdName);
 		customCmdCtx.szConsoleCommandHandler = reinterpret_cast<const char*>(pEngineConsoleCommandHandler);
 
-#define REGISTER_COMMAND_FN_PATTERN "48 89 5C 24 ?? 48 89 74 24 ?? 48 89 7C 24 ?? 55 41 54 41 55 41 56 41 57 48 8D AC 24 ?? ?? ?? ?? 48 81 EC ?? ?? ?? ?? 4D 8B E1 49 8B C0"
 		
 		customCmdCtx.fnToExecute = reinterpret_cast<RegisterCmdDef>(pExeMod->ScanMemory(REGISTER_COMMAND_FN_PATTERN));
 
